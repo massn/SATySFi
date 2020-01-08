@@ -394,6 +394,10 @@ module Math : sig
   direct \setsep : [math; math] math-cmd
   direct \cases : [(math * inline-text) list] math-cmd
 
+  direct \bra : [math] math-cmd 
+  direct \ket : [math] math-cmd
+  direct \braket : [math; math; math] math-cmd
+
   val paren-left : paren
   val paren-right : paren
   val angle-left : length -> paren
@@ -1569,5 +1573,13 @@ end = struct
     in
       math-paren brace-left empty-paren m-inner
 
+    let-math \bra =
+      math-paren (angle-left 0.5pt) abs-right
+
+    let-math \ket =
+      math-paren abs-left (angle-right 0.5pt)
+
+    let-math \braket m1 m2 m3 =
+                math-paren-with-middle (angle-left 0.5pt) (angle-right 0.5pt) (bar-middle) [m1;m2;m3]
 
 end
