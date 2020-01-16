@@ -53,6 +53,7 @@ module StdJaReport : sig
   direct +lemma : [inline-text?; string?; inline-text] block-cmd
   direct +corollary : [inline-text?; string?; inline-text] block-cmd
   direct +proof : [inline-text?; inline-text] block-cmd
+  direct +assumption : [inline-text?; string?; inline-text] block-cmd
   direct \emph : [inline-text] inline-cmd
   direct \dfn : [inline-text] inline-cmd
   direct \footnote : [inline-text] inline-cmd
@@ -517,6 +518,9 @@ end = struct
     let label = make-label `corollary:` labelopt in
       theorem-scheme ctx (set-latin-font font-latin-italic) {Corollary} wordopt label inner
 
+  let-block ctx +assumption ?:wordopt ?:labelopt inner =
+    let label = make-label `assumption:` labelopt in
+      theorem-scheme ctx (set-latin-font font-latin-italic) {Assumption} wordopt label inner
 
   let-block ctx +example ?:wordopt ?:labelopt inner =
     let label = make-label `example:` labelopt in
